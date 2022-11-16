@@ -5,7 +5,7 @@ const BoardComponent = () => {
         <div
             className='board'
         >
-
+контент
         </div>
     );
 };
