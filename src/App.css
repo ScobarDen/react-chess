@@ -26,6 +26,12 @@
     align-items: center;
 }
 
+.cell img{
+    height: 48px;
+    width: 48px;
+    position: relative;
+}
+
 .black{
     background: #100f0f;
 }
