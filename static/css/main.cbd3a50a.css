@@ -1,0 +1,2 @@
+*{margin:0;padding:0}.app{align-items:center;height:100vh;justify-content:center;width:100vw}.app,.board{display:flex}.board{flex-wrap:wrap;height:512px;width:512px}.cell{align-items:center;display:flex;height:64px;justify-content:center;width:64px}.cell img{height:48px;position:relative;width:48px}.black{background:#100f0f}.white{background:#ccc}
+/*# sourceMappingURL=main.cbd3a50a.css.map*/
