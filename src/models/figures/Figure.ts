@@ -3,7 +3,7 @@ import logo from '../../assets/b_bishop_png_shadow_128px.png';
 import {Cell} from "../Cell";
 
 export enum FigureNames {
-    FUGURE = 'Фигура',
+    FIGURE = 'Фигура',
     KING = 'Король',
     KNIGHT = 'Конь',
     PAWN = 'Пешка',
@@ -24,7 +24,7 @@ export class Figure {
         this.cell = cell;
         this.cell.figure = this;
         this.logo = null;
-        this.name = FigureNames.FUGURE;
+        this.name = FigureNames.FIGURE;
         this.id = Math.random() * Date.now();
     }
 
