@@ -4,6 +4,7 @@ import BoardComponent from "./components/BoardComponent";
 import {Board} from "./models/Board";
 import {Player} from "./models/Player";
 import {Colors} from "./models/Colors";
+import LostFigures from "./components/LostFigures";
 
 function App() {
     const [board, setBoard] = useState(new Board());
@@ -34,6 +35,11 @@ function App() {
             currentPlayer={currentPlayer}
             swapPlayer={swapPlayer}
             />
+            <div>
+                <LostFigures title="Черные" figures={board.lostBlackFigures}/>
+                <LostFigures title="Белые" figures={board.lostWhiteFigures}/>
+            </div>
+
         </div>
     );
 }
