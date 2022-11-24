@@ -2,6 +2,8 @@ import React, {useEffect, useRef, useState} from "react";
 import {Player} from "../models/Player";
 import {Colors} from "../models/Colors";
 
+const TIME_OF_GAME = 300;
+
 interface TimerProps {
     currentPlayer: Player | null;
     restart: () => void;
@@ -9,13 +11,25 @@ interface TimerProps {
 }
 
 const Timer: React.FC<TimerProps> = ({currentPlayer, restart}) => {
-    const [blackTime, setBlackTime] = useState(300);
-    const [whiteTime, setWhiteTime] = useState(300);
+    const [blackTime, setBlackTime] = useState(TIME_OF_GAME);
+    const [whiteTime, setWhiteTime] = useState(TIME_OF_GAME);
     const timer = useRef<null | ReturnType<typeof setInterval>>(null);
+
+
+    useEffect(()=>{
+        if (blackTime === 0){
+            alert('Game over! White wins!');
+            handleRestart();
+        }
+        if (whiteTime === 0){
+            alert('Game over! Black wins!');
+            handleRestart();
+        }
+    },[blackTime, whiteTime]);
 
     useEffect(()=>{
         startTimer();
-    },[currentPlayer])
+    },[currentPlayer]);
 
     function startTimer() {
         if (timer.current){
@@ -34,8 +48,8 @@ const Timer: React.FC<TimerProps> = ({currentPlayer, restart}) => {
     }
     
     function handleRestart() {
-        setBlackTime(300);
-        setWhiteTime(300);
+        setBlackTime(TIME_OF_GAME);
+        setWhiteTime(TIME_OF_GAME);
         restart();
     }
 
