@@ -35,7 +35,7 @@ const Timer: React.FC<TimerProps> = ({currentPlayer, restart}) => {
         if (timer.current){
             clearInterval(timer.current);
         }
-        const callback = currentPlayer?.color == Colors.WHITE ? decrementWhiteTimer : decrementBlackTimer;
+        const callback = currentPlayer?.color === Colors.WHITE ? decrementWhiteTimer : decrementBlackTimer;
         timer.current = setInterval(callback, 1000);
     }
 
