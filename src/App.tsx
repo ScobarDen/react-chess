@@ -14,7 +14,6 @@ function App() {
     const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
     useEffect(()=>{
         restart();
-        setCurrentPlayer(whitePlayer);
     },[]);
 
     function restart() {
@@ -22,6 +21,7 @@ function App() {
         newBoard.initCells();
         newBoard.addFigures();
         setBoard(newBoard);
+        setCurrentPlayer(whitePlayer);
     }
 
     function swapPlayer(){
