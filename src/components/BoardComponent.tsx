@@ -43,7 +43,7 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
 
     return (
         <div>
-            <h3>Текущий игрок {currentPlayer?.color}</h3>
+            <h3 className="currentplayer">Текущий игрок {currentPlayer?.color}</h3>
             <div
                 className='board'
             >

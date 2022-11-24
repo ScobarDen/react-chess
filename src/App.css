@@ -57,3 +57,16 @@
     margin-left: 50px;
     background-color: lightgray;
 }
+
+.restart {
+    background-color: white;
+    font-size: 16px;
+    text-decoration: none;
+    padding: 2%;
+    cursor: pointer;
+}
+
+.currentplayer {
+    text-align: center;
+    padding: 2%;
+}
