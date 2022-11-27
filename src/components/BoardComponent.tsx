@@ -3,6 +3,7 @@ import {Board} from "../models/Board";
 import CellComponent from "./CellComponent";
 import {Cell} from "../models/Cell";
 import {Player} from '../models/Player';
+import {FigureNames} from "../models/figures/Figure";
 
 interface BoardProps {
     board: Board;
@@ -26,6 +27,31 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
             }
         }
     }
+
+    function kingIsUnderAttack(currentPlayer: Player | null): boolean {
+        let kingCell: Cell | null = null;
+        let shah : boolean = false;
+        board.cells.forEach(row =>
+            row.forEach(cell => {
+                if (cell.figure?.color === currentPlayer?.color && cell.figure?.name === FigureNames.KING){
+                    kingCell = cell;
+                }
+                if (cell.figure?.color !== currentPlayer?.color){
+                    if (kingCell && cell.figure?.canMove(kingCell)){
+                        shah = true;
+                        return true;
+                    }
+                }
+            }))
+        return shah;
+    }
+
+    useEffect(() => {
+        if (kingIsUnderAttack(currentPlayer)) {
+            alert("Шах")
+        }
+    }, [currentPlayer]);
+
 
     useEffect(() => {
         highlightCell();
