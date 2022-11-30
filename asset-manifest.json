@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/react-chess/static/css/main.b85c38dd.css",
-    "main.js": "/react-chess/static/js/main.76a188fb.js",
+    "main.js": "/react-chess/static/js/main.2e1cac5f.js",
     "static/media/b_queen_png_shadow_128px.png": "/react-chess/static/media/b_queen_png_shadow_128px.fc06faf9a7d36cb449dc.png",
     "index.html": "/react-chess/index.html",
     "main.b85c38dd.css.map": "/react-chess/static/css/main.b85c38dd.css.map",
-    "main.76a188fb.js.map": "/react-chess/static/js/main.76a188fb.js.map"
+    "main.2e1cac5f.js.map": "/react-chess/static/js/main.2e1cac5f.js.map"
   },
   "entrypoints": [
     "static/css/main.b85c38dd.css",
-    "static/js/main.76a188fb.js"
+    "static/js/main.2e1cac5f.js"
   ]
 }
