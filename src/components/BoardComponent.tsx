@@ -45,18 +45,24 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
         return shah;
     }
 
-    function isCheckmate(kingCell: Cell | null, currentPlayer: Player | null) {
+    function isCheckmate(kingCell: Cell | null) {
         let checkmate: boolean = false;
-
-        if (kingIsUnderAttack(kingCell, currentPlayer)) {
-
-        }
-
+        // const clearCells: Array<number> = new Array<number>(64);
+        // clearCells.fill(0);
+        // board.cells.forEach((row, i) =>
+        //     row.forEach((cell, j) => {
+        //         if (kingCell?.figure?.canMove(cell)) {
+        //             clearCells[i * 8 + j] = 1;
+        //         }
+        //     }))
+        // console.log(clearCells.reduce((prev, num) => prev + num, 0))
+        // if (clearCells.reduce((prev, num) => prev + num, 0) === 0) checkmate = true;
         return checkmate;
     }
 
 
     useEffect(() => {
+        setMessage("");
         let whiteKing: Cell | null = null;
         let blackKing: Cell | null = null;
         board.cells.forEach(row =>
@@ -68,17 +74,19 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
                     blackKing = cell;
                 }
             }))
-        if (isCheckmate(whiteKing, whitePlayer)) {
-            setMessage("Мат белым");
+        if (kingIsUnderAttack(whiteKing, whitePlayer)) {
+            if (isCheckmate(whiteKing)) {
+                setMessage("Мат белым");
+            } else {
+                setMessage("Шах белым");
+            }
         }
-        else if (kingIsUnderAttack(whiteKing, whitePlayer)) {
-            setMessage("Шах белым");
-        }
-        if (isCheckmate(blackKing, blackPlayer)) {
-            setMessage("Шах черным");
-        }
-        else if (kingIsUnderAttack(blackKing, blackPlayer)) {
-            setMessage("Мат черным");
+        if (kingIsUnderAttack(blackKing, blackPlayer)) {
+            if (isCheckmate(blackKing)) {
+                setMessage("Мат черным");
+            } else {
+                setMessage("Шах черным");
+            }
         }
     });
 
