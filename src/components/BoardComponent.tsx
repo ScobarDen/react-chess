@@ -18,6 +18,7 @@ interface BoardProps {
 
 const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPlayer, whitePlayer, blackPlayer}) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
+    const [message, setMessage] = useState("");
 
     function click(cell: Cell) {
         if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
@@ -32,11 +33,11 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
     }
 
     function kingIsUnderAttack(kingCell: Cell | null, currentPlayer: Player | null): boolean {
-        let shah : boolean = false;
+        let shah: boolean = false;
         board.cells.forEach(row =>
             row.forEach(cell => {
-                if (cell.figure?.color !== currentPlayer?.color){
-                    if (kingCell && cell.figure?.canMove(kingCell)){
+                if (cell.figure?.color !== currentPlayer?.color) {
+                    if (kingCell && cell.figure?.canMove(kingCell)) {
                         shah = true;
                     }
                 }
@@ -44,6 +45,15 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
         return shah;
     }
 
+    function isCheckmate(kingCell: Cell | null, currentPlayer: Player | null) {
+        let checkmate: boolean = false;
+
+        if (kingIsUnderAttack(kingCell, currentPlayer)) {
+
+        }
+
+        return checkmate;
+    }
 
 
     useEffect(() => {
@@ -51,15 +61,25 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
         let blackKing: Cell | null = null;
         board.cells.forEach(row =>
             row.forEach(cell => {
-                if (cell.figure?.color === Colors.WHITE && cell.figure?.name === FigureNames.KING){
+                if (cell.figure?.color === Colors.WHITE && cell.figure?.name === FigureNames.KING) {
                     whiteKing = cell;
                 }
-                if (cell.figure?.color === Colors.BLACK && cell.figure?.name === FigureNames.KING){
+                if (cell.figure?.color === Colors.BLACK && cell.figure?.name === FigureNames.KING) {
                     blackKing = cell;
                 }
             }))
-        if (kingIsUnderAttack(whiteKing,whitePlayer)) alert("Шах белым");
-        if (kingIsUnderAttack(blackKing,blackPlayer)) alert("Шах черным");
+        if (isCheckmate(whiteKing, whitePlayer)) {
+            setMessage("Мат белым");
+        }
+        else if (kingIsUnderAttack(whiteKing, whitePlayer)) {
+            setMessage("Шах белым");
+        }
+        if (isCheckmate(blackKing, blackPlayer)) {
+            setMessage("Шах черным");
+        }
+        else if (kingIsUnderAttack(blackKing, blackPlayer)) {
+            setMessage("Мат черным");
+        }
     });
 
 
@@ -96,6 +116,7 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
                     </React.Fragment>
                 ))}
             </div>
+            <h3 className="currentplayer">{message}</h3>
         </div>
     );
 }
