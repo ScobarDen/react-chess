@@ -113,3 +113,14 @@
     text-align: center;
     padding: 2%;
 }
+
+.win{
+    width: calc(64px * 8);
+    height: calc(64px * 8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    font-size: 3rem;
+    border: 10px solid #2f2c2c;
+}

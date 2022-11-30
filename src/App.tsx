@@ -12,6 +12,7 @@ function App() {
     const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE));
     const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK));
     const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+    const [win, setWin] = useState<String>("game");
     useEffect(() => {
         restart();
     }, []);
@@ -22,6 +23,7 @@ function App() {
         newBoard.addFigures();
         setBoard(newBoard);
         setCurrentPlayer(whitePlayer);
+        setWin("game");
     }
 
     function swapPlayer() {
@@ -30,7 +32,7 @@ function App() {
 
     return (
         <div className='app'>
-            <Timer currentPlayer={currentPlayer} restart={restart}/>
+            <Timer currentPlayer={currentPlayer} restart={restart} win={win}/>
             <BoardComponent
                 whitePlayer={whitePlayer}
                 blackPlayer={blackPlayer}
@@ -38,6 +40,8 @@ function App() {
                 setBoard={setBoard}
                 currentPlayer={currentPlayer}
                 swapPlayer={swapPlayer}
+                win={win}
+                setWin={setWin}
             />
             <div>
                 <LostFigures title="Черные" figures={board.lostBlackFigures}/>

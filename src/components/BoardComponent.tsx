@@ -3,7 +3,7 @@ import {Board} from "../models/Board";
 import CellComponent from "./CellComponent";
 import {Cell} from "../models/Cell";
 import {Player} from '../models/Player';
-import {FigureNames} from "../models/figures/Figure";
+import {Figure, FigureNames} from "../models/figures/Figure";
 import {Colors} from "../models/Colors";
 
 interface BoardProps {
@@ -13,12 +13,23 @@ interface BoardProps {
     whitePlayer: Player | null;
     blackPlayer: Player | null;
     swapPlayer: () => void;
+    win: String;
+    setWin: (win: String) => void;
 }
 
 
-const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPlayer, whitePlayer, blackPlayer}) => {
+const BoardComponent: FC<BoardProps> = (
+    {
+        board,
+        setBoard,
+        currentPlayer,
+        swapPlayer, whitePlayer,
+        blackPlayer,
+        win,
+        setWin
+    }) => {
     const [selectedCell, setSelectedCell] = useState<Cell | null>(null);
-    const [message, setMessage] = useState("");
+    const [message, setMessage] = useState<String>("");
 
     function click(cell: Cell) {
         if (selectedCell && selectedCell !== cell && selectedCell.figure?.canMove(cell)) {
@@ -90,6 +101,13 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
         }
     });
 
+    useEffect(() => {
+        const lastLostWhite: Figure | undefined = board.lostWhiteFigures.at(-1);
+        const lastLostBlack: Figure | undefined = board.lostBlackFigures.at(-1);
+        if (lastLostWhite?.name === FigureNames.KING) setWin("черные");
+        if (lastLostBlack?.name === FigureNames.KING) setWin("белые");
+    }, [currentPlayer])
+
 
     useEffect(() => {
         highlightCell();
@@ -106,26 +124,28 @@ const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, swapPla
     }
 
     return (
-        <div>
-            <h3 className="currentplayer">Текущий игрок {currentPlayer?.color}</h3>
-            <div
-                className='board'
-            >
-                {board.cells.map((row, index) => (
-                    <React.Fragment key={index}>
-                        {row.map(cell => (
-                            <CellComponent
-                                click={click}
-                                cell={cell}
-                                key={cell.id}
-                                selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
-                            />
-                        ))}
-                    </React.Fragment>
-                ))}
-            </div>
-            <h3 className="currentplayer">{message}</h3>
-        </div>
+        <>
+            {win === "game" ? <div>
+                <h3 className="currentplayer">Текущий игрок {currentPlayer?.color}</h3>
+                <div
+                    className='board'
+                >
+                    {board.cells.map((row, index) => (
+                        <React.Fragment key={index}>
+                            {row.map(cell => (
+                                <CellComponent
+                                    click={click}
+                                    cell={cell}
+                                    key={cell.id}
+                                    selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
+                                />
+                            ))}
+                        </React.Fragment>
+                    ))}
+                </div>
+                <h3 className="currentplayer">{message}</h3>
+            </div> : <div className="win">Победили {win}</div>}
+        </>
     );
 }
 

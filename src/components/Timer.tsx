@@ -7,10 +7,10 @@ const TIME_OF_GAME = 300;
 interface TimerProps {
     currentPlayer: Player | null;
     restart: () => void;
-
+    win: String;
 }
 
-const Timer: React.FC<TimerProps> = ({currentPlayer, restart}) => {
+const Timer: React.FC<TimerProps> = ({currentPlayer, restart, win}) => {
     const [blackTime, setBlackTime] = useState(TIME_OF_GAME);
     const [whiteTime, setWhiteTime] = useState(TIME_OF_GAME);
     const timer = useRef<null | ReturnType<typeof setInterval>>(null);
